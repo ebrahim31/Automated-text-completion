@@ -15,7 +15,7 @@ class PTBInput(object):
   Code sourced from https://github.com/tensorflow/models/blob/master/tutorials/rnn/ptb/ptb_word_lm.py
   """
 
-  def __init__(self, data, batch_size, num_steps, name=None):
+def __init__(self, data, batch_size, num_steps, name=None):
     self.batch_size = batch_size
     self.num_steps = num_steps
     self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
