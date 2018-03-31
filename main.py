@@ -10,17 +10,12 @@ TIME_STEPS = 20
 BATCH_SIZE = 20
 
 class PTBInput(object):
-      """The input data.
-  
-  Code sourced from https://github.com/tensorflow/models/blob/master/tutorials/rnn/ptb/ptb_word_lm.py
-  """
-
-def __init__(self, data, batch_size, num_steps, name=None):
-    self.batch_size = batch_size
-    self.num_steps = num_steps
-    self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
-    self.input_data, self.targets = ptb_reader.ptb_producer(
-        data, batch_size, num_steps, name=name)
+    def __init__(self, data, batch_size, num_steps, name=None):
+        self.batch_size = batch_size
+        self.num_steps = num_steps
+        self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
+        self.input_data, self.targets = ptb_reader.ptb_producer(
+            data, batch_size, num_steps, name=name)
 
 raw_data = ptb_reader.ptb_raw_data(DATA_DIR)
 train_data, valid_data, test_data, _ = raw_data
