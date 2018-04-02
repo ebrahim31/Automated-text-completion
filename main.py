@@ -23,6 +23,14 @@ class PTBInput(object):
         self.input_data, self.targets = ptb_reader.ptb_producer(
             data, batch_size, num_steps, name=name)
 
+def loss(targets):
+    return tf.contrib.seq2seq.sequence_loss(
+        logits,
+        targets,
+        tf.ones([BATCH_SIZE, TIME_STEPS], dtype=tf.float32),
+        average_across_timesteps=True,
+        average_across_batch=True)
+
 raw_data = ptb_reader.ptb_raw_data(DATA_DIR)
 train_data, valid_data, test_data, _ = raw_data
 train_input = PTBInput(train_data, BATCH_SIZE, TIME_STEPS, name="TrainInput")
@@ -81,8 +89,9 @@ for epoch in range(1000):
     print('Epoch: ' + str(epoch))
     train_losses = []
     test_losses = []
+    loss_step = loss(train_input.targets)
     for i in range(len(train_data) // BATCH_SIZE):
-        _, train_loss = session.run([train_op, loss(train_input.targets)])
+        _, train_loss = session.run([train_op, loss_step])
         train_losses.append(train_loss)
     print('TRAIN LOSS: ' + str(np.average(train_losses)))
     for i in range(len(test_data) // BATCH_SIZE):
@@ -90,11 +99,3 @@ for epoch in range(1000):
         test_losses.append(test_loss)
     print('TEST LOSS: ' + str(np.average(test_losses)))
 
-
-def loss(targets):
-    return tf.contrib.seq2seq.sequence_loss(
-        logits,
-        targets,
-        tf.ones([BATCH_SIZE, TIME_STEPS], dtype=tf.float32),
-        average_across_timesteps=True,
-        average_across_batch=True)
