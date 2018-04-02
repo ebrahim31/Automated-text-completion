@@ -93,9 +93,11 @@ for epoch in range(1000):
     for i in range(len(train_data) // BATCH_SIZE):
         _, train_loss = session.run([train_op, loss_step])
         train_losses.append(train_loss)
+        print('train_losses for step '+ str(i)+' is '+ str(trainloss))
     print('TRAIN LOSS: ' + str(np.average(train_losses)))
+    loss_test_step = loss(test_input.targets)
     for i in range(len(test_data) // BATCH_SIZE):
-        test_loss = session.run(loss(test_input.targets))
+        test_loss = session.run(loss_test_step)
         test_losses.append(test_loss)
     print('TEST LOSS: ' + str(np.average(test_losses)))
 
