@@ -6,8 +6,8 @@ sys.path.append('/work/cse496dl/shared/hackathon/08')
 DATA_DIR = '/work/cse496dl/shared/hackathon/08/ptbdata'
 import ptb_reader
 
-TIME_STEPS = 20
-BATCH_SIZE = 20
+TIME_STEPS = 10
+BATCH_SIZE = 250
 
 tf.reset_default_graph()
 class PTBInput(object):
@@ -93,7 +93,7 @@ for epoch in range(1000):
     for i in range(len(train_data) // BATCH_SIZE):
         _, train_loss = session.run([train_op, loss_step])
         train_losses.append(train_loss)
-        print('train_losses for step '+ str(i)+' is '+ str(trainloss))
+        print('train_losses for step '+ str(i)+' is '+ str(train_loss))
     print('TRAIN LOSS: ' + str(np.average(train_losses)))
     loss_test_step = loss(test_input.targets)
     for i in range(len(test_data) // BATCH_SIZE):
