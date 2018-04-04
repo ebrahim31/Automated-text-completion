@@ -5,7 +5,6 @@ import sys
 flags = tf.app.flags
 sys.path.append('/work/cse496dl/shared/hackathon/08')
 DATA_DIR = '/work/cse496dl/shared/hackathon/08/ptbdata'
-FLAGS
 flags.DEFINE_string('save_dir', '/work/cse496dl/ebrahim31/hw4', 'directory where model graph and weights are saved')
 FLAGS = flags.FLAGS
 import ptb_reader
@@ -26,7 +25,7 @@ class PTBInput(object):
         self.input_data, self.targets = ptb_reader.ptb_producer(
             data, batch_size, num_steps, k, name=name)
 
-def loss(targets):
+def loss(logits, targets):
     return tf.contrib.seq2seq.sequence_loss(
         logits,
         targets,
@@ -78,7 +77,7 @@ def main(argv):
     #     average_across_batch=True)
 
     optimizer = tf.train.RMSPropOptimizer(LEARNING_RATE) # better than Adam for RNN networks
-    train_op = optimizer.minimize(loss(train_input.targets))
+    train_op = optimizer.minimize(loss(logits, train_input.targets))
 
     with tf.Session() as session:
         session.run(tf.global_variables_initializer())
@@ -91,8 +90,8 @@ def main(argv):
         # examples = session.run([train_input.input_data, train_input.targets])
         # we can run the train op as usual
 
-        train_loss = loss(train_input.targets)
-        test_loss = loss(test_input.targets)
+        train_loss = loss(logits, train_input.targets)
+        test_loss = loss(logits, test_input.targets)
         train_losses = []
         test_losses = []
         for epoch in range(10):
