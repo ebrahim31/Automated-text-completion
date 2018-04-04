@@ -7,8 +7,8 @@ DATA_DIR = '/work/cse496dl/shared/hackathon/08/ptbdata'
 flags.DEFINE_string('save_dir', '/work/cse496dl/ebrahim31/hw4', 'directory where model graph and weights are saved')
 import ptb_reader
 
-TIME_STEPS = 20
-BATCH_SIZE = 20
+TIME_STEPS = 10
+BATCH_SIZE = 250
 
 class PTBInput(object):
     """The input data.
@@ -76,7 +76,6 @@ def main(argv):
 
     optimizer = tf.train.RMSPropOptimizer(LEARNING_RATE) # better than Adam for RNN networks
     train_op = optimizer.minimize(loss(train_input.targets))
-
 
     with tf.Session() as session:
         session.run(tf.global_variables_initializer())
