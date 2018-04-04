@@ -6,7 +6,7 @@ import os
 flags = tf.app.flags
 sys.path.append('/work/cse496dl/shared/hackathon/08')
 DATA_DIR = '/work/cse496dl/shared/hackathon/08/ptbdata'
-flags.DEFINE_string('save_dir', '/work/cse496dl/ebrahim31/hw4', 'directory where model graph and weights are saved')
+flags.DEFINE_string('save_dir', '/work/cse496dl/asturtz/hw4', 'directory where model graph and weights are saved')
 FLAGS = flags.FLAGS
 import ptb_reader
 
@@ -95,7 +95,7 @@ def main(argv):
         test_loss = loss(logits, test_input.targets)
         train_losses = []
         test_losses = []
-        for epoch in range(10):
+        for epoch in range(100):
             print('Epoch: ' + str(epoch))
             _, train_loss_val = session.run([train_op, train_loss])
             train_losses.append(train_loss_val)
@@ -107,6 +107,7 @@ def main(argv):
                     str(test_loss_val))
 
     save('train_data', train_losses)
+    save('test_data', test_losses)
 if __name__ == '__main__':
     tf.app.run()
 
