@@ -26,12 +26,13 @@ def write_heatmap(in_file, out_file):
     plt.show()
     plt.close() # Closes for the next plot
 
-def write_plot(train_file, out_file):
+def write_plot(train_file, test_file, out_file):
     train_vals = np.load(train_file)
+    test_vals = np.load(test_file)
     num_epochs = len(train_vals)
     x = np.linspace(0, num_epochs, num_epochs)
     plt.plot(x, train_vals, 'b-', label='Training')
-    plt.plot(x, validation_vals, 'r-', label='Testing')
+    plt.plot(x, test_vals, 'r-', label='Testing')
     plt.legend(loc='lower right')
     plt.ylabel('PSNR')
     plt.xlabel('Epochs')
@@ -40,11 +41,9 @@ def write_plot(train_file, out_file):
     plt.close()
 
 def main(argv=sys.argv):
-    suffix = argv[1]
-    path_prefix = argv[2]
-    train_file = os.path.join(path_prefix, 'train-' + suffix + '.npy')
-    test_file = os.path.join(path_prefix, 'test-' + suffix + '.npy')
-    write_plot(train_file, test_file, os.path.join(path_prefix, suffix + '.png'))
+    train_file = os.path.join(path_prefix, 'train-data.npy')
+    test_file = os.path.join(path_prefix, 'test-data.npy')
+    write_plot(train_file, test_file, 'plot.png'))
 
 if __name__ == '__main__':
     main()
