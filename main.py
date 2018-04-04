@@ -2,13 +2,16 @@ import tensorflow as tf
 import numpy as np
 import sys
 
+flags = tf.app.flags
 sys.path.append('/work/cse496dl/shared/hackathon/08')
 DATA_DIR = '/work/cse496dl/shared/hackathon/08/ptbdata'
+FLAGS
 flags.DEFINE_string('save_dir', '/work/cse496dl/ebrahim31/hw4', 'directory where model graph and weights are saved')
+FLAGS = flags.FLAGS
 import ptb_reader
 
 TIME_STEPS = 10
-BATCH_SIZE = 250
+BATCH_SIZE = 20
 
 class PTBInput(object):
     """The input data.
