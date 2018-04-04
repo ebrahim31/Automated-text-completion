@@ -1,6 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import sys
+import os
 
 flags = tf.app.flags
 sys.path.append('/work/cse496dl/shared/hackathon/08')
