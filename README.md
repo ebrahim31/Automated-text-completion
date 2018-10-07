@@ -1,3 +1,3 @@
 Text completion using deep learning
 
-Prototype sentence completion system using PDT dataset that will take as input a sentence s and will output the next k words of s.
+Within this project, we used RNN to create a prototype sentence completion system based on PDT dataset. The developed network will take as input a sentence "s" and will output the next "k" words of "s".
